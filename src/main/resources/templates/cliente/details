@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead"></head>
+	<script> type="text/javascript" src="masks.js"></script> 
+	<body>
+		<div class="container">
+			<nav th:replace="layout :: menu">(menu)</nav>
+ 			<div class="border border-dark">
+				<form th:action="@{/cliente/(details)}" th:object="${cliente}" action="#" method="post">
+					<input type="hidden" id="txtid" th:field="*{id}" />
+				    <div class="form-group">
+				        <label for="txtnome">Nome Cliente</label>
+				        <input type="text" th:field="*{nomeCliente}" class="form-control" 
+				        id="txtnome" placeholder="Nome">
+				    </div>
+				    <div class="details-group" >
+				        <label for="txtcpf">CPF</label>
+				        <input type="text" script= "/js/masks.MascaraCPF" th:field="*{cpf}" class="details-control" 
+				        id="txtcpf" placeholder="Ex.: 000.000.000-00">
+				    </div>
+				    <div class="details-group">
+				        <label for="txtemail">E-mail</label>
+				        <input type="text" th:field="*{email}" class="details-control" 
+				        id="txtemail" placeholder="E-mail">
+				    </div>
+				    <div class="details-group">
+				        <label for="txsenha">Senha</label>
+				        <input type="text" th:field="*{senha}" class="details-control" 
+				        id="txtsenha" placeholder="Senha">
+				    </div>
+				    <div class="details-group">
+				        <label for="txtendereco">Endereço</label>
+				        <input type="text" th:field="*{endereco}" class="details-control" 
+				        id="txtendereco" placeholder="Endereço">
+				    </div>
+				    <div class="details-group">
+				        <label for="txttelefone">Telefone</label>
+				        <input type="number" th:field="*{telefone}" class="details-control" 
+				        id="txttelefone" placeholder="Telefone">
+				    </div>
+				    <div class="details-group">
+				        <label for="txtobservacoes">Observações</label>
+				        <input type="text" th:field="*{observacoes}" class="details-control" 
+				        id="txtobservacoes" placeholder="Observações">
+				    </div>
+				    <div class="details-group">
+				        <label for="txstatus">Status</label>
+				        <input type="text" th:field="*{status}" class="details-control" 
+				        id="txtstatus" placeholder="Status">
+				    </div>
+				    
+				    <button type="submit" class="btn btn-primary">Enviar</button>
+				</form>
+			</div>
+		</div>
+		<div th:include="layout :: footer" id="footer">(footer)</div>
+	</body>
+</html>
