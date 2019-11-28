@@ -23,7 +23,7 @@ public class OrdemDeServico {
 	@ManyToOne(cascade= {CascadeType.MERGE, CascadeType.REFRESH},optional=false)
 	private TipoPagamento tipoPagamento;
 	@ManyToOne(cascade= {CascadeType.MERGE, CascadeType.REFRESH},optional=false)
-	private TipoServico tiposervico;
+	private TipoServico tipoServico;
 	private Boolean status;
 	private String local;
 	private Date dataInicio;
@@ -62,11 +62,11 @@ public class OrdemDeServico {
 	public void setTipoPagamento(TipoPagamento tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
-	public TipoServico getTiposervico() {
-		return tiposervico;
+	public TipoServico getTipoServico() {
+		return tipoServico;
 	}
-	public void setTiposervico(TipoServico tiposervico) {
-		this.tiposervico = tiposervico;
+	public void setTiposervico(TipoServico tipoServico) {
+		this.tipoServico = tipoServico;
 	}
 	
 	public Boolean getStatus() {
