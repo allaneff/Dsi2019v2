@@ -6,6 +6,13 @@ function MascaraCNPJ(cnpj){
         return formataCampo(cnpj, '00.000.000/0000-00', event);
 }
 
+function MascaraIE(ie){
+    if(mascaraInteiro(ie)==false){
+            event.returnValue = false;
+    }       
+    return formataCampo(ie, '000.000.000', event);
+}
+
 //adiciona mascara ao RG
 function MascaraRG(rg){
         if((rg)==false){

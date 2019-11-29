@@ -1,5 +1,6 @@
 package br.univille.dsi2019.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,41 +14,60 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.univille.dsi2019.model.Cliente;
 import br.univille.dsi2019.model.Profissional;
-import br.univille.dsi2019.service.ProfissionalService;
+import br.univille.dsi2019.model.TipoPagamento;
+import br.univille.dsi2019.model.TipoProfissional;
+import br.univille.dsi2019.repository.ProfissionalRepository;
+import br.univille.dsi2019.repository.TipoProfissionalRepository;
+import br.univille.dsi2019.repository.TipoServicoRepository;
+
 
 @Controller
-@RequestMapping("/Profissional")
+@RequestMapping("/profissional")
 public class ProfissionalController {
 	@Autowired
-	private ProfissionalService profissionalService;
+	private ProfissionalRepository profissionalRepository;
+	@Autowired
+	private TipoProfissionalRepository tipoProfissionalRepository;
 	
 	@GetMapping()
 	public ModelAndView index() {
-		List<Profissional> lista = profissionalService.getAll();
+		List<Profissional> lista = profissionalRepository.findAll();
 		return new ModelAndView("profissional/index", "profissionais", lista);
 	}
 	
 	@GetMapping("/novo")
 	public ModelAndView createFrom(@ModelAttribute Profissional profissional) {
-		return new ModelAndView("profissional/form");
+		List<TipoProfissional> listaTipoProfissional = this.tipoProfissionalRepository.findAll();
+		
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("profissional", profissional);
+		dados.put("listaTipoProfissional", listaTipoProfissional);
+		return new ModelAndView("profissional/form", dados);
 	}
 	
 	@PostMapping(params="form")
 	public ModelAndView save(@Valid Profissional profissional) {
 		
-		profissionalService.save(profissional);
+		profissionalRepository.save(profissional);
 		return new ModelAndView("redirect:/profissional");
 	}
 	
 	@GetMapping(value="/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") Profissional profissional) {
-		return new ModelAndView("profissional/form", "profissional", profissional);
+		List<TipoProfissional> listaTipoProfissional = this.tipoProfissionalRepository.findAll();
+		
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("profissional", profissional);
+		dados.put("listaTipoProfissional", listaTipoProfissional);
+		
+		return new ModelAndView("profissional/form", "profissional", dados);
 	}
 	
 	@GetMapping(value="/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Profissional profissional) {
-		profissionalService.delete(profissional);
+		profissionalRepository.delete(profissional);
 		return new ModelAndView("redirect:/cliente");
 	}
 }
